@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.__USER__.omniwm-reapply-rules</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/opt/homebrew/bin/omniwmctl</string>
+		<string>watch</string>
+		<string>windows-changed</string>
+		<string>--reconnect</string>
+		<string>--exec</string>
+		<string>__HOME__/.config/omniwm/scripts/reapply-rules.sh</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>KeepAlive</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>/tmp/omniwm-reapply-rules.log</string>
+</dict>
+</plist>

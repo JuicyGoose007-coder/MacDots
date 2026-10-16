@@ -1,0 +1,7 @@
+.DS_Store
+*.bak-*
+
+# Runtime state that lives inside linked config dirs
+config/tmux/plugins/
+config/herdr/sessions/
+config/herdr/.plugins.lock
