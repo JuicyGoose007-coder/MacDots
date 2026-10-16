@@ -1,0 +1,124 @@
+# muted-water theme. Colours come from colors.sh (keep it in sync with
+# kitty/themes/muted-water.conf); items are drawn as rounded pills to match
+# starship. Item reference: https://felixkratz.github.io/SketchyBar/config/items
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+source "$CONFIG_DIR/colors.sh"
+
+FONT="JetBrainsMono Nerd Font"
+
+##### Bar Appearance #####
+
+bar=(
+  position=top
+  height=36
+  color=$BAR_COLOR
+  blur_radius=0
+  border_width=0
+  padding_left=8
+  padding_right=8
+)
+sketchybar --bar "${bar[@]}"
+
+##### Changing Defaults #####
+# Every item is a pill: surface background, base-coloured text when an
+# accent background is set per item.
+
+default=(
+  padding_left=3
+  padding_right=3
+  icon.font="$FONT:Bold:15.0"
+  label.font="$FONT:Bold:13.0"
+  icon.color=$TEXT
+  label.color=$TEXT
+  icon.padding_left=10
+  icon.padding_right=4
+  label.padding_left=4
+  label.padding_right=10
+  background.color=$SURFACE
+  background.corner_radius=12
+  background.height=24
+  background.border_width=1
+  background.border_color=$OVERLAY
+)
+sketchybar --default "${default[@]}"
+
+##### OmniWM Workspaces #####
+# One pill per workspace defined in omniwm/settings.toml, labelled with its
+# displayName. workspaces.sh handles highlighting, pinning and which
+# monitor's bar each pill is drawn on.
+
+OMNIWMCTL=/Applications/OmniWM.app/Contents/MacOS/omniwmctl
+
+sketchybar --add event omniwm_update
+
+for sid in $("$OMNIWMCTL" query workspaces --format json \
+             | jq -r '.result.payload.workspaces | sort_by(.number)[].number')
+do
+  workspace=(
+    icon="$sid"
+    icon.padding_left=10
+    icon.padding_right=10
+    label.drawing=off
+    label.padding_left=0
+    click_script="$OMNIWMCTL command switch-workspace $sid"
+  )
+  sketchybar --add item ws."$sid" left --set ws."$sid" "${workspace[@]}"
+done
+
+# Invisible controller item; only exists to run workspaces.sh on events.
+sketchybar --add item workspaces left \
+           --set workspaces drawing=off script="$PLUGIN_DIR/workspaces.sh" \
+           --subscribe workspaces omniwm_update display_change system_woke
+
+# Forward OmniWM's change stream into sketchybar. Replace any watcher left
+# over from a previous load so reloads don't stack them up.
+pkill -f "omniwmctl watch .*omniwm_update" 2>/dev/null
+nohup "$OMNIWMCTL" watch focus,active-workspace,workspace-bar,windows-changed,display-changed \
+  --reconnect --exec sketchybar --trigger omniwm_update >/dev/null 2>&1 &
+
+##### Left Items #####
+
+sketchybar --add item front_app left \
+           --set front_app icon.drawing=off label.color=$BASE \
+                 label.padding_left=12 label.padding_right=12 \
+                 background.color=$CYAN script="$PLUGIN_DIR/front_app.sh" \
+           --subscribe front_app front_app_switched omniwm_update
+
+##### Center Items #####
+
+# Two copies of the clock: one centred for normal displays, one just right
+# of the notch (position e) for notched ones. clock.sh updates both and
+# assigns each to the right displays whenever the monitor setup changes.
+
+clock=(
+  icon=
+  icon.color=$BASE
+  label.color=$BASE
+  background.color=$BORDER
+)
+
+sketchybar --add item clock center \
+           --set clock "${clock[@]}" update_freq=10 script="$PLUGIN_DIR/clock.sh" \
+           --subscribe clock display_change system_woke \
+           --add item clock_notch e \
+           --set clock_notch "${clock[@]}" drawing=off
+
+##### Right Items #####
+# Right items are added right-to-left: volume is the outermost pill.
+
+sketchybar --add item volume right \
+           --set volume script="$PLUGIN_DIR/volume.sh" \
+                 icon.color=$BLUE \
+           --subscribe volume volume_change \
+           --add item battery right \
+           --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+                 icon.color=$GREEN \
+           --subscribe battery system_woke power_source_change \
+           --add item media right \
+           --set media update_freq=3 script="$PLUGIN_DIR/media.sh" \
+                 label.max_chars=40 scroll_texts=on drawing=off \
+                 click_script="/opt/homebrew/bin/media-control toggle-play-pause; $PLUGIN_DIR/media.sh"
+
+##### Force all scripts to run the first time (never do this in a script) #####
+sketchybar --update
