@@ -166,7 +166,9 @@ alias ~='cd ~'
 alias h='history'
 alias j='jobs'
 alias c='clear'
-alias rb='sudo reboot'
+# Graceful restart so "Reopen windows" stays off
+alias reboot="osascript -e 'tell application \"loginwindow\" to «event aevtrrst»'"
+alias rb='reboot'
 
 # Shell
 alias reload='exec zsh'
@@ -263,6 +265,9 @@ unsetopt BEEP
 # PATH CONFIGURATION
 # ============================================================================
 
+# Homebrew first, so its bin/sbin beat /usr/bin (path_helper appends them last)
+[[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
 [[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
 [[ -d "$HOME/scripts" ]] && export PATH="$HOME/scripts:$PATH"
@@ -323,3 +328,7 @@ eval "$(starship init zsh)"
 
 export BAT_THEME="muted-water"
 # export BAT_THEME="gruvbox-dark"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
