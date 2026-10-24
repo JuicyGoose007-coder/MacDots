@@ -168,6 +168,21 @@ gridRow = 1
 monitorDisplayUUID = "37D8832A-2D66-02CA-B9F7-8F30A301B230"
 monitorName = "Built-in Retina Display"
 
+[[routing.arrangements]]
+id = "AF5F64D5-CDFC-40B7-A2EE-E90D33AC6BA4"
+
+[[routing.arrangements.monitors]]
+gridColumn = 0
+gridRow = 0
+monitorDisplayUUID = "5CAAC0D1-3114-4DE5-9FAD-FAC83E784F82"
+monitorName = "ZOWIE XL LCD"
+
+[[routing.arrangements.monitors]]
+gridColumn = 1
+gridRow = 1
+monitorDisplayUUID = "FA52744F-06B8-4804-96A1-93B80612C351"
+monitorName = "VG27A"
+
 [scratchpads]
 
 [scratchpads.labels]
