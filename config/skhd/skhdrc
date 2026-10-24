@@ -7,7 +7,7 @@ alt - return : open -na kitty
 alt - b      : open -na Firefox --env MOZ_DISABLE_SAFE_MODE_KEY=1 --args -P main --new-window
 alt - s      : open -na kitty --args /opt/homebrew/bin/spf
 alt - e      : open "$HOME"
-alt - d      : /opt/homebrew/bin/omniwmctl command open-command-palette applications
+alt - d      : /opt/homebrew/bin/lookapp --toggle
 alt - v      : /opt/homebrew/bin/omniwmctl command open-command-palette clipboard
 alt - space  : /opt/homebrew/bin/omniwmctl command toggle-overview
 cmd - m      : open -a Messages
@@ -15,6 +15,7 @@ alt - z      : open -na zen --env MOZ_DISABLE_SAFE_MODE_KEY=1 --args
 
 # ─── Window Management ───
 alt - q         : /opt/homebrew/bin/omniwmctl command close-focused-window
+shift + alt - q : $HOME/.local/bin/quitall
 shift + alt - f : /opt/homebrew/bin/omniwmctl command toggle-container-full-primary-span
 alt - f         : /opt/homebrew/bin/omniwmctl command toggle-fullscreen
 shift + alt - t : /opt/homebrew/bin/omniwmctl command toggle-focused-window-floating
@@ -116,10 +117,10 @@ alt - 0x18         : /opt/homebrew/bin/omniwmctl command set-container-primary-s
 shift + alt - 0x1B : /opt/homebrew/bin/omniwmctl command set-window-secondary-span -10%
 shift + alt - 0x18 : /opt/homebrew/bin/omniwmctl command set-window-secondary-span +10%
 
-# ─── Screenshots (to clipboard) ───
-alt - p          : screencapture -ic
-ctrl + shift - p : screencapture -c
-ctrl + shift - w : screencapture -icW
+# ─── Screenshots ───
+alt - p          : screencapture -i "$HOME/Pictures/Screenshots/shot-$(date +%Y%m%d-%H%M%S).png"
+ctrl + shift - p : screencapture -c "$HOME/Pictures/Screenshots/shot-$(date +%Y%m%d-%H%M%S).png"
+ctrl + shift - w : screencapture -iW "$HOME/Pictures/Screenshots/shot-$(date +%Y%m%d-%H%M%S).png"
 
 # ─── Power ───
 shift + alt - p : pmset displaysleepnow
