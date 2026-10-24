@@ -19,3 +19,5 @@ vim.o.scrolloff = 8
 vim.o.pumheight = 10
 vim.o.winborder = "rounded"
 vim.o.completeopt = "menuone,noselect,popup,fuzzy"
+vim.opt.spell = true
+vim.opt.spelllang = { "en_us" }
