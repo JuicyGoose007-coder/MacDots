@@ -91,7 +91,7 @@ format = "[](fg:yellow)[ $symbol ]($style)[](fg:yellow) "
 
 [custom.shell]
 detect_extensions = ["sh", "bash", "zsh"]
-symbol = ""
+symbol = "󱆃"
 style = "bg:yellow fg:base bold"
 format = "[](fg:yellow)[ $symbol ]($style)[](fg:yellow) "
 
