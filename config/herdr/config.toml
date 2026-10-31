@@ -16,11 +16,11 @@ text = "#eef3f8"
 subtext0 = "#c0c8d0"
 mauve = "#7888b8"
 green = "#6a8f90"
-yellow = "#a89e7a"
+yellow = "#7888b8"
 red = "#c34143"
 blue = "#5880a8"
 teal = "#7a9fa0"
-peach = "#bab08c"
+peach = "#8f9cc8"
 
 # Keys mirror ~/.config/tmux/tmux.conf where herdr has a matching action.
 [keys]

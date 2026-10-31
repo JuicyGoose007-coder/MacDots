@@ -17,7 +17,7 @@ export BORDER=0xffa8b8c8
 export BLUE=0xff7aaac8
 export RED=0xffd0605f
 export GREEN=0xff7a9fa0
-export YELLOW=0xffbab08c
+export YELLOW=0xff8f9cc8
 export MAGENTA=0xff7888b8
 export CYAN=0xff88b4c0
 
