@@ -5,16 +5,17 @@
 # ─── Applications ───
 alt - return : open -na kitty
 alt - b      : open -na Firefox --env MOZ_DISABLE_SAFE_MODE_KEY=1 --args -P main --new-window
-alt - s      : open -na kitty --args /opt/homebrew/bin/spf
+# alt - s      : open -na kitty --args /opt/homebrew/bin/spf
+alt - s      : open -na kitty --args /opt/homebrew/bin/yazi 
 alt - e      : open "$HOME"
-alt - d      : /opt/homebrew/bin/lookapp --toggle
+alt - d      : /opt/homebrew/bin/skhd -k "ctrl - space"
 alt - v      : /opt/homebrew/bin/omniwmctl command open-command-palette clipboard
 alt - space  : /opt/homebrew/bin/omniwmctl command toggle-overview
 cmd - m      : open -a Messages
 alt - z      : open -na zen --env MOZ_DISABLE_SAFE_MODE_KEY=1 --args 
 
 # ─── Window Management ───
-alt - q         : /opt/homebrew/bin/omniwmctl command close-focused-window
+alt - q         : $HOME/.local/bin/closeorquit
 shift + alt - q : $HOME/.local/bin/quitall
 shift + alt - f : /opt/homebrew/bin/omniwmctl command toggle-container-full-primary-span
 alt - f         : /opt/homebrew/bin/omniwmctl command toggle-fullscreen
