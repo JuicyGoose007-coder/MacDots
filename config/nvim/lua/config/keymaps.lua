@@ -3,5 +3,5 @@
 -- Add any additional keymaps here
 
 vim.keymap.set("n", "<leader>ob", function()
-  vim.ui.open(vim.fn.expand("%:p"))
-end, { desc = "Open file in browser" })
+  vim.system({ "open", "-a", "Google Chrome", vim.fn.expand("%:p") })
+end, { desc = "Open file in Chrome" })
