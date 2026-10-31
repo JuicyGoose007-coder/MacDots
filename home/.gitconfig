@@ -3,3 +3,5 @@
 	email = jaketurner624@gmail.com
 [init]
 	defaultBranch = main
+[core]
+	excludesfile = /Users/juicygoose007/.gitignore_global
