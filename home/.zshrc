@@ -326,9 +326,24 @@ eval "$(starship init zsh)"
      fi
  fi
 
+# Bat Theme
 export BAT_THEME="muted-water"
-# export BAT_THEME="gruvbox-dark"
+# export BAT_THEME="gruvbox-dark
+
+# Upgrade zen without greedy flag
+export HOMEBREW_UPGRADE_GREEDY_CASKS="zen"
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Load NVM only when a Node command is first used in this shell.
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+    _load_nvm() {
+        unfunction nvm node npm npx
+        source "$NVM_DIR/nvm.sh" || return
+        [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
+        "$@"
+    }
+    nvm() { _load_nvm nvm "$@"; }
+    node() { _load_nvm node "$@"; }
+    npm() { _load_nvm npm "$@"; }
+    npx() { _load_nvm npx "$@"; }
+fi
