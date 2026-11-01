@@ -189,6 +189,9 @@ alias lg='lazygit'
 
 # Tmux
 alias tn='tmux new-session -A -s'
+alias tl='tmux list-sessions'
+alias ta='tmux attach-session -t'
+alias td='tmux detach'
 alias tk='tmux kill-session -t'
 
 # Herdr
