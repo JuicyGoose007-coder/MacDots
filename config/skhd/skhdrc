@@ -119,9 +119,10 @@ shift + alt - 0x1B : /opt/homebrew/bin/omniwmctl command set-window-secondary-sp
 shift + alt - 0x18 : /opt/homebrew/bin/omniwmctl command set-window-secondary-span +10%
 
 # ─── Screenshots ───
-alt - p          : screencapture -i "$HOME/Pictures/Screenshots/shot-$(date +%Y%m%d-%H%M%S).png"
-ctrl + shift - p : screencapture -c "$HOME/Pictures/Screenshots/shot-$(date +%Y%m%d-%H%M%S).png"
-ctrl + shift - w : screencapture -iW "$HOME/Pictures/Screenshots/shot-$(date +%Y%m%d-%H%M%S).png"
+# Each saves to ~/Pictures/Screenshots and copies to the clipboard
+alt - p          : $HOME/.config/skhd/screenshot.sh -i
+ctrl + shift - p : $HOME/.config/skhd/screenshot.sh
+ctrl + shift - w : $HOME/.config/skhd/screenshot.sh -iW
 
 # ─── Power ───
 shift + alt - p : pmset displaysleepnow
