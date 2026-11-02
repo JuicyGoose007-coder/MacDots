@@ -21,3 +21,13 @@ vim.keymap.set("n", "<leader>df", function()
     })
   end)
 end, { desc = "Diff current file with..." })
+
+vim.keymap.set("n", "<leader>dq", function()
+  local cur = vim.api.nvim_get_current_win()
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    if win ~= cur and vim.wo[win].diff then
+      vim.api.nvim_win_close(win, false)
+    end
+  end
+  vim.cmd("diffoff!")
+end, { desc = "Close diff" })
